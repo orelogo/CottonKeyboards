@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">CottonKeyboards</string>
+    <string name="app_name">Shopify Sales Summary</string>
+    <string name="loading_summary">Loading summary...</string>
+    <string name="unable">Unable to connect to the server</string>
+    <string name="total_revenue">Total Revenue: $%1$.2f</string>
+    <string name="ac_keyboards_sold">Aerodynamic Cotton Keyboards Sold: %1$d</string>
+    <string name="refresh">Refresh</string>
 </resources>
