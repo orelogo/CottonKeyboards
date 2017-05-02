@@ -8,7 +8,9 @@ import org.json.JSONObject;
  * Created by patso on 5/2/2017.
  */
 
-public class Parser {
+class Parser {
+
+    // JSON property names
     private static final String ORDERS = "orders";
     private static final String TOTAL_PRICE = "total_price";
     private static final String LINE_ITEMS = "line_items";
@@ -16,7 +18,7 @@ public class Parser {
 
     private static final String AERO_COTTON_KEYBOARD = "Aerodynamic Cotton Keyboard";
 
-    public static Result parseOrders(String body) throws JSONException {
+    static Result parseOrders(String body) throws JSONException {
         double revenue = 0;
         int keyboardCount = 0;
 
@@ -37,7 +39,7 @@ public class Parser {
 
         for (int i = 0; i < items.length(); i++) {
             JSONObject item = items.getJSONObject(i);
-            if (AERO_COTTON_KEYBOARD.equals(item.getString(TITLE)))
+            if (item.getString(TITLE).equals(AERO_COTTON_KEYBOARD))
                 keyboardCount++;
         }
 

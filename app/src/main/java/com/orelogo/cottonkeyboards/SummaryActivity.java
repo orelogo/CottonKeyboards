@@ -2,16 +2,13 @@ package com.orelogo.cottonkeyboards;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.IOException;
+public class SummaryActivity extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity {
-
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "SummaryActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +22,28 @@ public class MainActivity extends AppCompatActivity {
                 refresh();
             }
         });
-        Controller.getOrders(this, 1);
+        HttpController.getOrders(this);
     }
 
-    public void refresh() {
+    void displaySummary(Result result) {
+        TextView statusView = (TextView) findViewById(R.id.status);
+        statusView.setVisibility(View.INVISIBLE);
+
+        TextView revenueView = (TextView) findViewById(R.id.totalRevenue);
+        String totalRevenue = getString(R.string.total_revenue, result.getTotalRevenue());
+        revenueView.setText(totalRevenue);
+
+        TextView keyboardsView = (TextView) findViewById(R.id.aeroCottonkeyboardCount);
+        String acKeyboardsSold = getString(R.string.ac_keyboards_sold, result.getACKeyboardCount());
+        keyboardsView.setText(acKeyboardsSold);
+    }
+
+    void displayError() {
+        TextView statusView = (TextView) findViewById(R.id.status);
+        statusView.setText(R.string.unable);
+    }
+
+    void refresh() {
         TextView statusView = (TextView) findViewById(R.id.status);
         statusView.setText(getString(R.string.loading_summary));
         statusView.setVisibility(View.VISIBLE);
@@ -39,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         TextView keyboardsView = (TextView) findViewById(R.id.aeroCottonkeyboardCount);
         keyboardsView.setText(null);
 
-        Controller.getOrders(this, 1);
+        HttpController.getOrders(this);
     }
 
 }
