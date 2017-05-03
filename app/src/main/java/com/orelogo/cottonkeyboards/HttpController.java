@@ -1,5 +1,7 @@
 package com.orelogo.cottonkeyboards;
 
+import android.util.Log;
+
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -14,6 +16,7 @@ import okhttp3.Response;
  * Wrapper for OkHttp used to connect to server and get order information.
  */
 class HttpController {
+    private static final String TAG = "HttpController";
 
     private static final String DOMAIN = "https://shopicruit.myshopify.com";
     private static final String ACCESS_TOKEN = "c32313df0d0ef512ca64d5b336a0d7c6";
@@ -41,8 +44,7 @@ class HttpController {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (!response.isSuccessful()) loadError(activity);
-
-                loadSummary(activity, response.body().string());
+                else loadSummary(activity, response.body().string());
             }
         });
     }
@@ -64,7 +66,7 @@ class HttpController {
                 }
             });
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Parsing error", e);
         }
     }
 

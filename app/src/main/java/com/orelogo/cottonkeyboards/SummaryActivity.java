@@ -6,15 +6,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.Locale;
-
 /**
  * Activity for displaying Shopify merchant summary with total revenue and number of aerodynamic
  * cotton keyboards sold for all orders.
  */
 public class SummaryActivity extends AppCompatActivity {
-
-    private static final String TAG = "SummaryActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +36,7 @@ public class SummaryActivity extends AppCompatActivity {
         statusView.setVisibility(View.INVISIBLE);
 
         TextView revenueView = (TextView) findViewById(R.id.totalRevenue);
-        String totalRevenue = String.format(Locale.getDefault(), "$%.2f", result.getTotalRevenue());
+        String totalRevenue = getString(R.string.money, result.getTotalRevenue());
         revenueView.setText(totalRevenue);
 
         TextView keyboardsView = (TextView) findViewById(R.id.keyboardsSold);
