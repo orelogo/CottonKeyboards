@@ -1,8 +1,5 @@
 package com.orelogo.cottonkeyboards;
 
-import android.app.Activity;
-import android.widget.TextView;
-
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -14,9 +11,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Created by patso on 5/1/2017.
+ * Wrapper for OkHttp used to connect to server and get order information.
  */
-
 class HttpController {
 
     private static final String DOMAIN = "https://shopicruit.myshopify.com";
@@ -24,6 +20,13 @@ class HttpController {
 
     private static final OkHttpClient client = new OkHttpClient();
 
+    /**
+     * Async get request for orders. If successful, will update the given activity with summary
+     * information about the orders. If an error occurs, a message will be displayed notifying
+     * the user.
+     *
+     * @param activity summary activity that will display the information
+     */
     static void getOrders(final SummaryActivity activity) {
         Request request = new Request.Builder()
                 .url(DOMAIN + "/admin/orders.json?page=1&access_token=" + ACCESS_TOKEN)
@@ -44,11 +47,16 @@ class HttpController {
         });
     }
 
+    /**
+     * Attempt to parse orders and load the summary information into the given activity.
+     *
+     * @param activity summary activity for displaying information
+     * @param body json of orders
+     */
     private static void loadSummary(final SummaryActivity activity, final String body) {
 
         try {
             final Result result = Parser.parseOrders(body);
-
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -60,6 +68,11 @@ class HttpController {
         }
     }
 
+    /**
+     * Load error message.
+     *
+     * @param activity summary activity for displaying message
+     */
     private static void loadError(final SummaryActivity activity) {
         activity.runOnUiThread(new Runnable() {
             @Override

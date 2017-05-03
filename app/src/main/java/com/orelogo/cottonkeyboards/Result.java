@@ -1,9 +1,9 @@
 package com.orelogo.cottonkeyboards;
 
 /**
- * Created by patso on 5/2/2017.
+ * Data structure for storing total revenue and amount of aerodynamic cotton keyboards sold for a
+ * single order or multiple orders.
  */
-
 class Result {
     private double totalRevenue;
     private int aeroCottonKeyboardCount;
